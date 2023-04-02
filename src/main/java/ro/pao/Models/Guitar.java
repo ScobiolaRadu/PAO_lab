@@ -1,7 +1,7 @@
-package main.java.ro.pao.Models;
+package src.main.java.ro.pao.Models;
 
-import main.java.ro.pao.Models.Abstracts.AbstractInstrument;
-import main.java.ro.pao.Models.Enums.EnumInstruments;
+import src.main.java.ro.pao.Models.Abstracts.AbstractInstrument;
+import src.main.java.ro.pao.Models.Enums.EnumInstruments;
 
 public class Guitar extends AbstractInstrument {
     

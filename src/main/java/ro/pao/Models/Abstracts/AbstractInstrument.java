@@ -1,6 +1,6 @@
-package main.java.ro.pao.Models.Abstracts;
+package src.main.java.ro.pao.Models.Abstracts;
 
-import main.java.ro.pao.Models.Enums.EnumInstruments;
+import src.main.java.ro.pao.Models.Enums.EnumInstruments;
 
 public class AbstractInstrument {
 
@@ -31,7 +31,7 @@ public class AbstractInstrument {
         return name;
     }
 
-    public void setName(string name) {
+    public void setName(String name) {
         this.name = name;
     }
 
