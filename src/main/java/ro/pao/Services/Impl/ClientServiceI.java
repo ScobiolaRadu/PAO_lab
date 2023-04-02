@@ -21,7 +21,7 @@ public class ClientServiceI implements ClientService{
     }
 
     @Override
-    public void login(Client client)
+    public int login(Client client)
     {
         int ok=0;
         for (int i = 0; i < clients.size(); i++) {
@@ -33,7 +33,17 @@ public class ClientServiceI implements ClientService{
 
         if(ok==0)
             System.out.println("Wrong username or password");
-        
+
+        return ok;
+    }
+
+    
+    public int permitLogin(int ok)
+    {
+        if(ok==1)
+            return 1;
+        else
+            return 0;
     }
 
     @Override

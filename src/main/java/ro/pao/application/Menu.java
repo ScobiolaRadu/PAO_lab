@@ -16,9 +16,6 @@ import ro.pao.Models.Piano;
 
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
-
-
 
 public class Menu {
     
@@ -389,8 +386,11 @@ public class Menu {
 
         Client client = new Client(username, password, password);
 
-        clientService.login(client);
-        clientMenu(client);
+        int allowed = clientService.login(client);
+        
+        if(allowed == 1)
+            clientMenu(client);
+        
     }
 
     public void showMenu() {

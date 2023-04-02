@@ -12,7 +12,7 @@ public interface ClientService {
 
     public void createAccount(Client client);
     
-    public void login(Client client);
+    public int login(Client client);
 
     public void addGuitarToCart(Client client, Guitar guitar, List <Guitar> guitars);
 
