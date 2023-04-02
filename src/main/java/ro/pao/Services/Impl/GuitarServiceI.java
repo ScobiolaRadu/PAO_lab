@@ -23,20 +23,30 @@ public class GuitarServiceI implements GuitarService {
 
     @Override
     public void updateGuitar(Guitar guitar, Guitar guitar2) {
+        int ok=0;
         for (int i = 0; i < guitars.size(); i++) {
             if (guitars.get(i).getName().equals(guitar.getName())) {
+                ok=1;
                 guitars.set(i, guitar2);
             }
         }
+
+        if(ok==0)
+            System.out.println("Guitar not found");
     }
 
     @Override
     public void deleteGuitar(Guitar guitar) {
+        int ok=0;
         for (int i = 0; i < guitars.size(); i++) {
             if (guitars.get(i).getName().equals(guitar.getName())) {
+                ok=1;
                 guitars.remove(i);
             }
         }
+
+        if(ok==0)
+            System.out.println("Guitar not found");
     }
 }
 

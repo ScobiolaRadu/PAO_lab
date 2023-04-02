@@ -13,7 +13,6 @@ public class Guitar extends AbstractInstrument {
         this.body = body;
     }
 
-    
 
     public String getBody() {
         return body;

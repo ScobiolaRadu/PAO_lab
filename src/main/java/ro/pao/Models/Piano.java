@@ -23,7 +23,7 @@ public class Piano extends AbstractInstrument{
 
     @Override
     public String toString() {
-        return "Guitar [brand= " + brand + ", name= " + name + ", key= " + key + ", price= " + price + ", quantity= "
+        return "Piano [brand= " + brand + ", name= " + name + ", key= " + key + ", price= " + price + ", quantity= "
                 + quantity +"]";
     }
 }

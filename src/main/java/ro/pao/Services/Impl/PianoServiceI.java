@@ -22,19 +22,29 @@ public class PianoServiceI implements PianoService{
 
     @Override
     public void updatePiano(Piano piano, Piano piano2) {
+        int ok=0;
         for (int i = 0; i < pianos.size(); i++) {
             if (pianos.get(i).getName().equals(piano.getName())) {
+                ok=1;
                 pianos.set(i, piano2);
             }
         }
+
+        if(ok==0)
+            System.out.println("Piano not found");
     }
 
     @Override
     public void deletePiano(Piano piano) {
+        int ok=0;
         for (int i = 0; i < pianos.size(); i++) {
             if (pianos.get(i).getName().equals(piano.getName())) {
+                ok=1;
                 pianos.remove(i);
             }
         }
+
+        if(ok==0)
+            System.out.println("Piano not found");
     }
 }

@@ -7,22 +7,23 @@ import ro.pao.Models.Guitar;
 import ro.pao.Models.Piano;
 import ro.pao.Services.GuitarService;
 import ro.pao.Services.Impl.GuitarServiceI;
+import ro.pao.Services.Impl.PianoServiceI;
+import ro.pao.Services.Impl.DrumsServiceI;
+import ro.pao.Services.Impl.ClientServiceI;
+import ro.pao.Services.PianoService;
+import ro.pao.Services.DrumsService;
+import ro.pao.Services.ClientService;
+import ro.pao.Application.Menu;
+
+import java.util.Scanner;
+
 
 public class Main {
+ 
     public static void main(String[] args) {
-    Guitar guitar = new Guitar("Ibanez", "Rg370", 2100, 5, "Stratocaster");
-    Guitar guitar2 = new Guitar("Epiphone", "G400", 1500, 12, "SG");
-    Guitar guitar3 = new Guitar("Fender", "Stratocaster", 3000, 6, "Stratocaster");
 
-    GuitarService guitarService = new GuitarServiceI();
+        Menu menu = new Menu();
+        menu.showMenu();
 
-    guitarService.addGuitar(guitar);
-    guitarService.addGuitar(guitar2);
-    System.out.println(guitarService.getAllGuitars());
-    guitarService.updateGuitar(guitar, guitar3);
-    System.out.println(guitarService.getAllGuitars());
-    guitarService.deleteGuitar(guitar2);
-    System.out.println(guitarService.getAllGuitars());
-
-    }
+    }   
 }

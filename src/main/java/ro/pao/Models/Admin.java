@@ -9,4 +9,5 @@ public class Admin extends AbstractUser{
         super(username, password, email);
         this.type = EnumUsers.ADMIN;
     }
+
 }

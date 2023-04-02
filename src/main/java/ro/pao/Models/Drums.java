@@ -23,7 +23,7 @@ public class Drums extends AbstractInstrument {
 
     @Override
     public String toString() {
-        return "Guitar [brand= " + brand + ", name= " + name + ", number of drums= " + nr_drums + ", price= " + price + ", quantity= "
+        return "Drums [brand= " + brand + ", name= " + name + ", number of drums= " + nr_drums + ", price= " + price + ", quantity= "
                 + quantity +"]";
     }
 }
