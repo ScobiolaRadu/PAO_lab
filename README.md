@@ -1,4 +1,4 @@
-#Etapa 1
+ETAPA 1
 
 In aplicatie utilizatorul se poate loga ca admin sau ca si client dupa ce isi creeaza un cont.
 
