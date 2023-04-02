@@ -1,12 +1,12 @@
-package src.main.java.ro.pao;
+package ro.pao;
 
-import src.main.java.ro.pao.Models.Admin;
-import src.main.java.ro.pao.Models.Client;
-import src.main.java.ro.pao.Models.Drums;
-import src.main.java.ro.pao.Models.Guitar;
-import src.main.java.ro.pao.Models.Piano;
-import src.main.java.ro.pao.Services.GuitarService;
-import src.main.java.ro.pao.Services.Impl.GuitarServiceI;
+import ro.pao.Models.Admin;
+import ro.pao.Models.Client;
+import ro.pao.Models.Drums;
+import ro.pao.Models.Guitar;
+import ro.pao.Models.Piano;
+import ro.pao.Services.GuitarService;
+import ro.pao.Services.Impl.GuitarServiceI;
 
 public class Main {
     public static void main(String[] args) {

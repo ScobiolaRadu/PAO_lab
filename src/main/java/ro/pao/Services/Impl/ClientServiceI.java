@@ -1,10 +1,10 @@
-package src.main.java.ro.pao.Services.Impl;
+package ro.pao.Services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.ro.pao.Models.Client;
-import src.main.java.ro.pao.Services.ClientService;
+import ro.pao.Models.Client;
+import ro.pao.Services.ClientService;
 
 public class ClientServiceI implements ClientService{
 

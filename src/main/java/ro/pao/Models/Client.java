@@ -1,9 +1,9 @@
-package src.main.java.ro.pao.Models;
+package ro.pao.Models;
 
 import java.util.List;
 
-import src.main.java.ro.pao.Models.Abstracts.AbstractUser;
-import src.main.java.ro.pao.Models.Enums.EnumUsers;
+import ro.pao.Models.Abstracts.AbstractUser;
+import ro.pao.Models.Enums.EnumUsers;
 
 public class Client extends AbstractUser {
     

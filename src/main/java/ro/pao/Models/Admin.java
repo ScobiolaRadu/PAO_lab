@@ -1,7 +1,7 @@
-package src.main.java.ro.pao.Models;
+package ro.pao.Models;
 
-import src.main.java.ro.pao.Models.Abstracts.AbstractUser;
-import src.main.java.ro.pao.Models.Enums.EnumUsers;
+import ro.pao.Models.Abstracts.AbstractUser;
+import ro.pao.Models.Enums.EnumUsers;
 
 public class Admin extends AbstractUser{
     

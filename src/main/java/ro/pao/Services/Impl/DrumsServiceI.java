@@ -1,10 +1,10 @@
-package src.main.java.ro.pao.Services.Impl;
+package ro.pao.Services.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.ro.pao.Models.Drums;
-import src.main.java.ro.pao.Services.DrumsService;
+import ro.pao.Models.Drums;
+import ro.pao.Services.DrumsService;
 
 public class DrumsServiceI implements DrumsService{
 

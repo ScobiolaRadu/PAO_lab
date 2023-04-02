@@ -1,4 +1,4 @@
-package src.main.java.ro.pao.Application;
+package ro.pao.Application;
 
 public class Menu {
     

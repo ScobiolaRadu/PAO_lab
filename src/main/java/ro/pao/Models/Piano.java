@@ -1,7 +1,7 @@
-package src.main.java.ro.pao.Models;
+package ro.pao.Models;
 
-import src.main.java.ro.pao.Models.Abstracts.AbstractInstrument;
-import src.main.java.ro.pao.Models.Enums.EnumInstruments;
+import ro.pao.Models.Abstracts.AbstractInstrument;
+import ro.pao.Models.Enums.EnumInstruments;
 
 public class Piano extends AbstractInstrument{
 

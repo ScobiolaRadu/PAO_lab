@@ -1,6 +1,6 @@
-package src.main.java.ro.pao.Models.Abstracts;
+package ro.pao.Models.Abstracts;
 
-import src.main.java.ro.pao.Models.Enums.EnumUsers;
+import ro.pao.Models.Enums.EnumUsers;
 
 public class AbstractUser {
     

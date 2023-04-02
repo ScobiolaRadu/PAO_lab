@@ -1,9 +1,9 @@
-package src.main.java.ro.pao.Services.Impl;
+package ro.pao.Services.Impl;
 
 import java.util.List;
 
-import src.main.java.ro.pao.Models.Guitar;
-import src.main.java.ro.pao.Services.GuitarService;
+import ro.pao.Models.Guitar;
+import ro.pao.Services.GuitarService;
 
 import java.util.ArrayList;
 

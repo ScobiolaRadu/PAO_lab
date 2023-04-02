@@ -1,4 +1,4 @@
-package src.main.java.ro.pao.Models.Enums;
+package ro.pao.Models.Enums;
 
 public enum EnumInstruments {
     GUITAR, DRUMS, PIANO, UNDEFINED

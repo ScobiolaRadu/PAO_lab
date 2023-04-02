@@ -1,8 +1,8 @@
-package src.main.java.ro.pao.Services;
+package ro.pao.Services;
 
 import java.util.List;
 
-import src.main.java.ro.pao.Models.Drums;
+import ro.pao.Models.Drums;
 
 public interface DrumsService {
     
