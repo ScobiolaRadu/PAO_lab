@@ -1,22 +1,13 @@
 package ro.pao;
 
-import ro.pao.application.Menu;
-
-import java.util.Scanner;
+import main.java.ro.pao.Models.Guitar;
+import main.java.ro.pao.Models.Drums;
+import main.java.ro.pao.Models.Piano;
+import main.java.ro.pao.Models.Client;
+import main.java.ro.pao.Models.Admin;
 
 public class Main {
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            Menu menu = Menu.getInstance();
-
-            menu.intro();
-
-            if ("exit".equals(scanner.next())) {
-                break;
-            }
-        }
+    
     }
 }
