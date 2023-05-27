@@ -21,12 +21,15 @@ import java.util.List;
 import ro.pao.Repositories.impl.GuitarRepositoryI;
 import ro.pao.Repositories.impl.PianoRepositoryI;
 import ro.pao.Repositories.impl.DrumsRepositoryI;
+import ro.pao.Repositories.impl.ClientRepositoryI;
+import ro.pao.Repositories.impl.CartRepositoryI;
 
 public class Menu {
 
     private GuitarService guitarService;
     private PianoService pianoService;
     private DrumsService drumsService;
+    private ClientService clientService;
 
     public Menu(Connection connection) {
         this.guitarService = new GuitarServiceI(new GuitarRepositoryI(connection) {
@@ -35,9 +38,10 @@ public class Menu {
         });
         this.drumsService = new DrumsServiceI(new DrumsRepositoryI(connection) {
         });
+        this.clientService = new ClientServiceI(new ClientRepositoryI(connection) {
+        }, new CartRepositoryI(connection) {
+        });
     }
-
-    private ClientService clientService = new ClientServiceI();
 
     Admin admin = new Admin("admin", "admin", "admin@gmail.com");
 
@@ -274,7 +278,7 @@ public class Menu {
 
                     List<Guitar> guitars = guitarService.getAllGuitars();
                     Guitar guitar = new Guitar(brand, model, price, stock, body);
-                    clientService.addGuitarToCart(client, guitar, guitars);
+                    clientService.addGuitarToCart(client, guitar);
                     break;
 
                 case "5":
@@ -291,7 +295,7 @@ public class Menu {
 
                     List<Piano> pianos = pianoService.getAllPianos();
                     Piano piano = new Piano(brand, model, price, stock, key);
-                    clientService.addPianoToCart(client, piano, pianos);
+                    clientService.addPianoToCart(client, piano);
                     break;
 
                 case "6":
@@ -307,16 +311,16 @@ public class Menu {
                     int nr_drums = scanner.nextInt();
                     List<Drums> drumsList = drumsService.getAllDrums();
                     Drums drums = new Drums(brand, model, price, stock, nr_drums);
-                    clientService.addDrumsToCart(client, drums, drumsList);
+                    clientService.addDrumsToCart(client, drums);
                     break;
 
                 case "7":
-                    System.out.println(clientService.showCart());
+                    System.out.println(clientService.showCart(client));
                     break;
 
                 case "100":
                     System.out.println("Logged out!");
-                    clientService.emptyCart();
+                    clientService.emptyCart(client);
                     ok = 0;
                     break;
 
@@ -334,13 +338,15 @@ public class Menu {
         System.out.println("Password: ");
         String password = scanner.next();
 
-        Client client = new Client(username, password, password);
+        Client client = new Client();
+        client.setUsername(username);
+        client.setPassword(password);
+        int allowed = clientService.login(client.getUsername(), client.getPassword());
 
-        int allowed = clientService.login(client);
-
-        if (allowed == 1)
+        if (allowed != 0)
             clientMenu(client);
-
+        else
+            System.out.println("Wrong username or password");
     }
 
     public void showMenu() {

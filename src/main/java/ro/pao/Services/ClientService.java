@@ -1,28 +1,23 @@
 package ro.pao.Services;
 
 import java.util.List;
-
 import ro.pao.Models.Client;
-
 import ro.pao.Models.Guitar;
 import ro.pao.Models.Piano;
 import ro.pao.Models.Drums;
 
 public interface ClientService {
+    void createAccount(Client client);
 
-    public void createAccount(Client client);
-    
-    public int login(Client client);
+    int login(String username, String password);
 
-    public void addGuitarToCart(Client client, Guitar guitar, List <Guitar> guitars);
+    void addGuitarToCart(Client client, Guitar guitar);
 
-    public void addPianoToCart(Client client, Piano piano, List <Piano> pianos);
+    void addPianoToCart(Client client, Piano piano);
 
-    public void addDrumsToCart(Client client, Drums drums, List <Drums> drumsList);
+    void addDrumsToCart(Client client, Drums drums);
 
-    public void emptyCart();
+    void emptyCart(Client client);
 
-    public List<Object> showCart();
-
-    
+    List<Object> showCart(Client client);
 }

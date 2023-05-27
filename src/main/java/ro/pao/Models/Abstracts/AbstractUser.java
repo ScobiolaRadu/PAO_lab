@@ -16,6 +16,10 @@ public class AbstractUser {
         this.type = EnumUsers.UNDEFINED;
     }
 
+    public AbstractUser() {
+        this.type = EnumUsers.UNDEFINED;
+    }
+
     public String getUsername() {
         return username;
     }
