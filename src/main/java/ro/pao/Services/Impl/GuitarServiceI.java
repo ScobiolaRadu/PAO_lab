@@ -4,49 +4,49 @@ import java.util.List;
 
 import ro.pao.Models.Guitar;
 import ro.pao.Services.GuitarService;
-
-import java.util.ArrayList;
+import ro.pao.Repositories.GuitarRepository;
 
 public class GuitarServiceI implements GuitarService {
 
-    private List<Guitar> guitars = new ArrayList<>();
+    private GuitarRepository guitarRepository;
+
+    public GuitarServiceI(GuitarRepository guitarRepository) {
+        this.guitarRepository = guitarRepository;
+    }
 
     @Override
     public List<Guitar> getAllGuitars() {
-        return guitars;
+        return guitarRepository.getAllGuitars();
     }
 
     @Override
     public void addGuitar(Guitar guitar) {
-        guitars.add(guitar);
+        guitarRepository.addGuitar(guitar);
     }
 
     @Override
-    public void updateGuitar(Guitar guitar, Guitar guitar2) {
-        int ok=0;
-        for (int i = 0; i < guitars.size(); i++) {
-            if (guitars.get(i).getName().equals(guitar.getName())) {
-                ok=1;
-                guitars.set(i, guitar2);
-            }
-        }
-
-        if(ok==0)
+    public void updateGuitar(int id, Guitar newGuitar) {
+        Guitar existingGuitar = guitarRepository.getGuitarById(id);
+        if (existingGuitar != null) {
+            newGuitar.setId(id); // Set the ID of the new guitar object
+            guitarRepository.updateGuitar(id, newGuitar);
+        } else {
             System.out.println("Guitar not found");
+        }
     }
 
     @Override
-    public void deleteGuitar(Guitar guitar) {
-        int ok=0;
-        for (int i = 0; i < guitars.size(); i++) {
-            if (guitars.get(i).getName().equals(guitar.getName())) {
-                ok=1;
-                guitars.remove(i);
-            }
-        }
-
-        if(ok==0)
+    public void deleteGuitar(int id) {
+        Guitar existingGuitar = guitarRepository.getGuitarById(id);
+        if (existingGuitar != null) {
+            guitarRepository.deleteGuitar(id);
+        } else {
             System.out.println("Guitar not found");
+        }
+    }
+
+    @Override
+    public Guitar getGuitarById(int id) {
+        return guitarRepository.getGuitarById(id);
     }
 }
-

@@ -1,4 +1,4 @@
-package ro.pao.Application;
+package ro.pao.application;
 
 import ro.pao.Services.GuitarService;
 import ro.pao.Services.PianoService;
@@ -13,13 +13,24 @@ import ro.pao.Models.Client;
 import ro.pao.Models.Drums;
 import ro.pao.Models.Guitar;
 import ro.pao.Models.Piano;
+import ro.pao.Repositories.GuitarRepository;
 
+import java.sql.Connection;
 import java.util.Scanner;
 import java.util.List;
 
+import ro.pao.Repositories.impl.GuitarRepositoryI;
+
 public class Menu {
     
-    private GuitarService guitarService = new GuitarServiceI();
+    private GuitarService guitarService;
+
+    public Menu(Connection connection) {
+        this.guitarService = new GuitarServiceI(new GuitarRepositoryI(connection) {
+            
+        });
+    }
+
     private PianoService pianoService = new PianoServiceI();
     private DrumsService drumsService = new DrumsServiceI();
     private ClientService clientService = new ClientServiceI();
@@ -65,7 +76,9 @@ public class Menu {
                 break;
 
             case "2":
-                System.out.println("Guitar to update: ");
+                System.out.println("Guitar id to update: ");
+                int id = scanner.nextInt();
+                System.out.println("New Guitar\n-----");
                 System.out.println("Brand: ");
                 brand = scanner.next();
                 System.out.println("Model: ");
@@ -77,34 +90,13 @@ public class Menu {
                 System.out.println("Type: ");
                 body = scanner.next();
                 guitar = new Guitar(brand, model, price, stock, body);
-                System.out.println("New Guitar: ");
-                System.out.println("Brand: ");
-                brand = scanner.next();
-                System.out.println("Model: ");
-                model = scanner.next();
-                System.out.println("Price: ");
-                price = scanner.nextInt();
-                System.out.println("Stock: ");
-                stock = scanner.nextInt();
-                System.out.println("Type: ");
-                body = scanner.next();
-                Guitar guitar2 = new Guitar(brand, model, price, stock, body);
-                guitarService.updateGuitar(guitar, guitar2);
+                guitarService.updateGuitar(id, guitar);
                 break;
 
             case "3":
-                System.out.println("Brand: ");
-                brand = scanner.next();
-                System.out.println("Model: ");
-                model = scanner.next();
-                System.out.println("Price: ");
-                price = scanner.nextInt();
-                System.out.println("Stock: ");
-                stock = scanner.nextInt();
-                System.out.println("Type: ");
-                body = scanner.next();
-                guitar = new Guitar(brand, model, price, stock, body);
-                guitarService.deleteGuitar(guitar);
+                System.out.println("Guitar id to delete: ");
+                id = scanner.nextInt();
+                guitarService.deleteGuitar(id);
                 break;
 
             case "4":

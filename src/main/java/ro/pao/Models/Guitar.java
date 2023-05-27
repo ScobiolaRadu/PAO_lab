@@ -5,7 +5,15 @@ import ro.pao.Models.Enums.EnumInstruments;
 
 public class Guitar extends AbstractInstrument {
     
+    private int id;
     private String body;
+
+    public Guitar(int id, String brand, String name, int price, int quantity, String body) {
+        super(brand, name, price, quantity);
+        this.id = id;
+        this.type = EnumInstruments.GUITAR;
+        this.body = body;
+    }
 
     public Guitar(String brand, String name, int price, int quantity, String body) {
         super(brand, name, price, quantity);
@@ -13,6 +21,13 @@ public class Guitar extends AbstractInstrument {
         this.body = body;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getBody() {
         return body;
@@ -24,7 +39,7 @@ public class Guitar extends AbstractInstrument {
     
     @Override
     public String toString() {
-        return "Guitar [brand= " + brand + ", name= " + name + ", body= " + body + ", price= " + price + ", quantity= "
-                + quantity +"]";
+        return "Guitar [id= " + id + ", brand= " + brand + ", name= " + name + ", body= " + body + ", price= " + price
+                + ", quantity= " + quantity + "]";
     }
 }
