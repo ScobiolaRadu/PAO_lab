@@ -1,50 +1,52 @@
 package ro.pao.Services.Impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ro.pao.Models.Piano;
 import ro.pao.Services.PianoService;
+import ro.pao.Repositories.PianoRepository;
 
-public class PianoServiceI implements PianoService{
-    
-    private List<Piano> pianos = new ArrayList<>();
+public class PianoServiceI implements PianoService {
+
+    private PianoRepository pianoRepository;
+
+    public PianoServiceI(PianoRepository pianoRepository) {
+        this.pianoRepository = pianoRepository;
+    }
 
     @Override
     public List<Piano> getAllPianos() {
-        return pianos;
+        return pianoRepository.getAllPianos();
     }
 
     @Override
     public void addPiano(Piano piano) {
-        pianos.add(piano);
+        pianoRepository.addPiano(piano);
     }
 
     @Override
-    public void updatePiano(Piano piano, Piano piano2) {
-        int ok=0;
-        for (int i = 0; i < pianos.size(); i++) {
-            if (pianos.get(i).getName().equals(piano.getName())) {
-                ok=1;
-                pianos.set(i, piano2);
-            }
-        }
-
-        if(ok==0)
+    public void updatePiano(int id, Piano newPiano) {
+        Piano existingPiano = pianoRepository.getPianoById(id);
+        if (existingPiano != null) {
+            newPiano.setId(id); // Set the ID of the new piano object
+            pianoRepository.updatePiano(id, newPiano);
+        } else {
             System.out.println("Piano not found");
+        }
     }
 
     @Override
-    public void deletePiano(Piano piano) {
-        int ok=0;
-        for (int i = 0; i < pianos.size(); i++) {
-            if (pianos.get(i).getName().equals(piano.getName())) {
-                ok=1;
-                pianos.remove(i);
-            }
-        }
-
-        if(ok==0)
+    public void deletePiano(int id) {
+        Piano existingPiano = pianoRepository.getPianoById(id);
+        if (existingPiano != null) {
+            pianoRepository.deletePiano(id);
+        } else {
             System.out.println("Piano not found");
+        }
+    }
+
+    @Override
+    public Piano getPianoById(int id) {
+        return pianoRepository.getPianoById(id);
     }
 }

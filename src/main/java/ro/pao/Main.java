@@ -9,9 +9,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String url = "jdbc:mysql://localhost:3306/magazin-instrumente";
-        String username = "root";
-        String password = "Scolopendra1";
+        Secrets secrets = new Secrets();
+        String url = secrets.getURL();
+        String username = secrets.getUsername();
+        String password = secrets.getPassword();
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

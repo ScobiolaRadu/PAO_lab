@@ -1,53 +1,52 @@
 package ro.pao.Services.Impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ro.pao.Models.Drums;
 import ro.pao.Services.DrumsService;
+import ro.pao.Repositories.DrumsRepository;
 
-public class DrumsServiceI implements DrumsService{
+public class DrumsServiceI implements DrumsService {
 
-    private List<Drums> drumsList =  new ArrayList<>();
+    private DrumsRepository guitarRepository;
+
+    public DrumsServiceI(DrumsRepository guitarRepository) {
+        this.guitarRepository = guitarRepository;
+    }
 
     @Override
     public List<Drums> getAllDrums() {
-        return drumsList;
+        return guitarRepository.getAllDrums();
     }
 
     @Override
-    public void addDrums(Drums drums) {
-        drumsList.add(drums);
+    public void addDrums(Drums guitar) {
+        guitarRepository.addDrums(guitar);
     }
 
     @Override
-    public void updateDrums(Drums drums, Drums drums2) {
-        int ok=0;
-        for (int i = 0; i < drumsList.size(); i++) {
-            if (drumsList.get(i).getName().equals(drums.getName())) {
-                ok=1;
-                drumsList.set(i, drums2);
-            }
-        }
-
-        if(ok==0)
+    public void updateDrums(int id, Drums newDrums) {
+        Drums existingDrums = guitarRepository.getDrumsById(id);
+        if (existingDrums != null) {
+            newDrums.setId(id); // Set the ID of the new guitar object
+            guitarRepository.updateDrums(id, newDrums);
+        } else {
             System.out.println("Drums not found");
+        }
     }
 
     @Override
-    public void deleteDrums(Drums drums) {
-        int ok=0;
-        for (int i = 0; i < drumsList.size(); i++) {
-            if (drumsList.get(i).getName().equals(drums.getName())) {
-                ok=1;
-                drumsList.remove(i);
-            }
-        }
-
-        if(ok==0)
+    public void deleteDrums(int id) {
+        Drums existingDrums = guitarRepository.getDrumsById(id);
+        if (existingDrums != null) {
+            guitarRepository.deleteDrums(id);
+        } else {
             System.out.println("Drums not found");
+        }
     }
-    
 
-    
+    @Override
+    public Drums getDrumsById(int id) {
+        return guitarRepository.getDrumsById(id);
+    }
 }

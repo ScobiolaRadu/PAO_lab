@@ -1,7 +1,7 @@
 package ro.pao.Repositories.impl;
 
-import ro.pao.Models.Guitar;
-import ro.pao.Repositories.GuitarRepository;
+import ro.pao.Models.Drums;
+import ro.pao.Repositories.DrumsRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,51 +9,51 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GuitarRepositoryI implements GuitarRepository {
+public class DrumsRepositoryI implements DrumsRepository {
 
     private Connection connection;
 
-    public GuitarRepositoryI(Connection connection) {
+    public DrumsRepositoryI(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public List<Guitar> getAllGuitars() {
-        List<Guitar> guitars = new ArrayList<>();
-        String query = "SELECT * FROM guitar";
+    public List<Drums> getAllDrums() {
+        List<Drums> drumss = new ArrayList<>();
+        String query = "SELECT * FROM drums";
 
         try (PreparedStatement statement = connection.prepareStatement(query);
                 ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("idguitar");
+                int id = resultSet.getInt("iddrums");
                 String brand = resultSet.getString("brand");
                 String name = resultSet.getString("name");
                 int price = resultSet.getInt("price");
                 int quantity = resultSet.getInt("quantity");
-                String body = resultSet.getString("body");
+                int nr_drums = resultSet.getInt("nr_drums");
 
-                Guitar guitar = new Guitar(id, brand, name, price, quantity, body);
-                guitars.add(guitar);
+                Drums drums = new Drums(id, brand, name, price, quantity, nr_drums);
+                drumss.add(drums);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return guitars;
+        return drumss;
     }
 
     @Override
-    public void addGuitar(Guitar guitar) {
-        String query = "INSERT INTO guitar (brand, name, price, quantity, body) VALUES (?, ?, ?, ?, ?)";
+    public void addDrums(Drums drums) {
+        String query = "INSERT INTO drums (brand, name, price, quantity, nr_drums) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, guitar.getBrand());
-            statement.setString(2, guitar.getName());
-            statement.setInt(3, guitar.getPrice());
-            statement.setInt(4, guitar.getQuantity());
-            statement.setString(5, guitar.getBody());
+            statement.setString(1, drums.getBrand());
+            statement.setString(2, drums.getName());
+            statement.setInt(3, drums.getPrice());
+            statement.setInt(4, drums.getQuantity());
+            statement.setInt(5, drums.getNr_drums());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -62,15 +62,15 @@ public class GuitarRepositoryI implements GuitarRepository {
     }
 
     @Override
-    public void updateGuitar(int id, Guitar newGuitar) {
-        String query = "UPDATE guitar SET brand = ?, name = ?, price = ?, quantity = ?, body = ? WHERE idguitar = ?";
+    public void updateDrums(int id, Drums newDrums) {
+        String query = "UPDATE drums SET brand = ?, name = ?, price = ?, quantity = ?, nr_drums = ? WHERE iddrums = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, newGuitar.getBrand());
-            statement.setString(2, newGuitar.getName());
-            statement.setInt(3, newGuitar.getPrice());
-            statement.setInt(4, newGuitar.getQuantity());
-            statement.setString(5, newGuitar.getBody());
+            statement.setString(1, newDrums.getBrand());
+            statement.setString(2, newDrums.getName());
+            statement.setInt(3, newDrums.getPrice());
+            statement.setInt(4, newDrums.getQuantity());
+            statement.setInt(5, newDrums.getNr_drums());
             statement.setInt(6, id);
 
             statement.executeUpdate();
@@ -80,8 +80,8 @@ public class GuitarRepositoryI implements GuitarRepository {
     }
 
     @Override
-    public void deleteGuitar(int id) {
-        String query = "DELETE FROM guitar WHERE idguitar = ?";
+    public void deleteDrums(int id) {
+        String query = "DELETE FROM drums WHERE iddrums = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -93,8 +93,8 @@ public class GuitarRepositoryI implements GuitarRepository {
     }
 
     @Override
-    public Guitar getGuitarById(int id) {
-        String query = "SELECT * FROM guitar WHERE idguitar = ?";
+    public Drums getDrumsById(int id) {
+        String query = "SELECT * FROM drums WHERE iddrums = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -105,9 +105,9 @@ public class GuitarRepositoryI implements GuitarRepository {
                     String name = resultSet.getString("name");
                     int price = resultSet.getInt("price");
                     int quantity = resultSet.getInt("quantity");
-                    String body = resultSet.getString("body");
+                    int nr_drums = resultSet.getInt("nr_drums");
 
-                    return new Guitar(brand, name, price, quantity, body);
+                    return new Drums(brand, name, price, quantity, nr_drums);
                 }
             }
         } catch (SQLException e) {

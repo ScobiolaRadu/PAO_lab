@@ -1,11 +1,10 @@
-package ro.pao.Services;
+package ro.pao.Repositories;
 
 import ro.pao.Models.Piano;
 
 import java.util.List;
 
-public interface PianoService {
-
+public interface PianoRepository {
     List<Piano> getAllPianos();
 
     void addPiano(Piano piano);

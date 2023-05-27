@@ -4,7 +4,7 @@ import ro.pao.Models.Abstracts.AbstractInstrument;
 import ro.pao.Models.Enums.EnumInstruments;
 
 public class Guitar extends AbstractInstrument {
-    
+
     private int id;
     private String body;
 
@@ -36,7 +36,7 @@ public class Guitar extends AbstractInstrument {
     public void setBody(String body) {
         this.body = body;
     }
-    
+
     @Override
     public String toString() {
         return "Guitar [id= " + id + ", brand= " + brand + ", name= " + name + ", body= " + body + ", price= " + price
