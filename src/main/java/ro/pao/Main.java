@@ -18,6 +18,10 @@ public class Main {
 
             Connection connection = DriverManager.getConnection(url, username, password);
             System.out.println("Conexiunea la baza de date a fost realizata cu succes!");
+
+            Export export = new Export();
+            export.guitarsCSVFile(connection);
+
             Menu menu = new Menu(connection);
             menu.showMenu();
 
