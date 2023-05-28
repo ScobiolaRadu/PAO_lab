@@ -27,9 +27,6 @@ public class CartRepositoryI implements CartRepository {
     public void addToCart(int clientId, Guitar guitar) {
         Cart existingCart = getCartByClientId(clientId);
 
-        System.out.println("clientid" + clientId);
-        System.out.println("guitar" + guitar);
-
         if (existingCart != null) {
             if (existingCart.getGuitars() == null) {
                 existingCart.setGuitars(new ArrayList<>());
