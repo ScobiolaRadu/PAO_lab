@@ -23,12 +23,17 @@ import ro.pao.Repositories.impl.DrumsRepositoryI;
 import ro.pao.Repositories.impl.ClientRepositoryI;
 import ro.pao.Repositories.impl.CartRepositoryI;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Menu {
 
     private GuitarService guitarService;
     private PianoService pianoService;
     private DrumsService drumsService;
     private ClientService clientService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Menu.class);
 
     public Menu(Connection connection) {
         this.guitarService = new GuitarServiceI(new GuitarRepositoryI(connection) {
@@ -48,6 +53,7 @@ public class Menu {
     Admin admin = new Admin("admin", "admin", "admin@gmail.com");
 
     void adminMenu() {
+        LOGGER.info("Entering admin menu");
         int ok = 1;
         while (ok == 1) {
 
@@ -207,9 +213,11 @@ public class Menu {
                     break;
             }
         }
+        LOGGER.info("Admin logged out");
     }
 
     void loginAsAdmin() {
+        LOGGER.info("Accessing loginAsAdmin method");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Username: ");
         String username = scanner.next();
@@ -222,9 +230,11 @@ public class Menu {
         } else {
             System.out.println("Wrong username or password");
         }
+        LOGGER.info("Exiting loginAsAdmin method");
     }
 
     void createAccount() {
+        LOGGER.info("Accessing createAccount method");
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Username: ");
@@ -236,9 +246,11 @@ public class Menu {
 
         Client client = new Client(username, password, email);
         clientService.createAccount(client);
+        LOGGER.info("Exiting createAccount method");
     }
 
     void clientMenu(Client client) {
+        LOGGER.info("Logged in as client");
         int ok = 1;
         while (ok == 1) {
             System.out.println("1   View guitars");
@@ -303,9 +315,11 @@ public class Menu {
                     break;
             }
         }
+        LOGGER.info("Client logged out");
     }
 
     void loginAsClient() {
+        LOGGER.info("Accessing loginAsClient method");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Username: ");
         String username = scanner.next();
@@ -323,10 +337,10 @@ public class Menu {
             clientMenu(client);
         else
             System.out.println("Wrong username or password");
+        LOGGER.info("Exiting loginAsClient method");
     }
 
     public void showMenu() {
-
         while (true) {
             System.out.println("1   Login as Admin");
             System.out.println("2   Login as Client");
