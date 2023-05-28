@@ -107,7 +107,7 @@ public class PianoRepositoryI implements PianoRepository {
                     int quantity = resultSet.getInt("quantity");
                     String key = resultSet.getString("musicalkey");
 
-                    return new Piano(brand, name, price, quantity, key);
+                    return new Piano(id, brand, name, price, quantity, key);
                 }
             }
         } catch (SQLException e) {

@@ -14,6 +14,8 @@ import ro.pao.Repositories.DrumsRepository;
 import ro.pao.Repositories.GuitarRepository;
 import ro.pao.Repositories.PianoRepository;
 
+import java.util.ArrayList;
+
 public class CartRepositoryI implements CartRepository {
     private Connection connection;
 
@@ -22,19 +24,53 @@ public class CartRepositoryI implements CartRepository {
     }
 
     @Override
-    public void addToCart(int clientId, Guitar guitar, Piano piano, Drums drums) {
+    public void addToCart(int clientId, Guitar guitar) {
+        Cart existingCart = getCartByClientId(clientId);
+
+        System.out.println("clientid" + clientId);
+        System.out.println("guitar" + guitar);
+
+        if (existingCart != null) {
+            if (existingCart.getGuitars() == null) {
+                existingCart.setGuitars(new ArrayList<>());
+            }
+            existingCart.getGuitars().add(guitar);
+            updateCart(existingCart);
+        } else {
+            Cart newCart = new Cart();
+            newCart.setClientId(clientId);
+            newCart.setGuitars(new ArrayList<>());
+            newCart.getGuitars().add(guitar);
+            insertCart(newCart);
+        }
+    }
+
+    @Override
+    public void addToCart(int clientId, Piano piano) {
         Cart existingCart = getCartByClientId(clientId);
 
         if (existingCart != null) {
-            existingCart.getGuitars().add(guitar);
+
             existingCart.getPianos().add(piano);
+            updateCart(existingCart);
+        } else {
+            Cart newCart = new Cart();
+            newCart.setClientId(clientId);
+            newCart.getPianos().add(piano);
+            insertCart(newCart);
+        }
+    }
+
+    @Override
+    public void addToCart(int clientId, Drums drums) {
+        Cart existingCart = getCartByClientId(clientId);
+
+        if (existingCart != null) {
             existingCart.getDrums().add(drums);
             updateCart(existingCart);
         } else {
             Cart newCart = new Cart();
             newCart.setClientId(clientId);
-            newCart.getGuitars().add(guitar);
-            newCart.getPianos().add(piano);
             newCart.getDrums().add(drums);
             insertCart(newCart);
         }
@@ -96,15 +132,30 @@ public class CartRepositoryI implements CartRepository {
 
     private void insertCart(Cart cart) {
         String query = "INSERT INTO cart (idclient, idguitar, idpiano, iddrums) VALUES (?, ?, ?, ?)";
-
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, cart.getClientId());
-            int guitarId = cart.getGuitars().isEmpty() ? 0 : cart.getGuitars().get(0).getId();
-            statement.setInt(2, guitarId);
-            int pianoId = cart.getPianos().isEmpty() ? 0 : cart.getPianos().get(0).getId();
-            statement.setInt(3, pianoId);
-            int drumsId = cart.getDrums().isEmpty() ? 0 : cart.getDrums().get(0).getId();
-            statement.setInt(4, drumsId);
+
+            Integer guitarId = cart.getGuitars().isEmpty() ? null : cart.getGuitars().get(0).getId();
+            Integer pianoId = cart.getPianos().isEmpty() ? null : cart.getPianos().get(0).getId();
+            Integer drumsId = cart.getDrums().isEmpty() ? null : cart.getDrums().get(0).getId();
+
+            if (guitarId != null) {
+                statement.setInt(2, guitarId);
+            } else {
+                statement.setNull(2, java.sql.Types.INTEGER);
+            }
+
+            if (pianoId != null) {
+                statement.setInt(3, pianoId);
+            } else {
+                statement.setNull(3, java.sql.Types.INTEGER);
+            }
+
+            if (drumsId != null) {
+                statement.setInt(4, drumsId);
+            } else {
+                statement.setNull(4, java.sql.Types.INTEGER);
+            }
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -116,12 +167,28 @@ public class CartRepositoryI implements CartRepository {
         String query = "UPDATE cart SET idguitar = ?, idpiano = ?, iddrums = ? WHERE idclient = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            int guitarId = cart.getGuitars().isEmpty() ? 0 : cart.getGuitars().get(0).getId();
-            statement.setInt(1, guitarId);
-            int pianoId = cart.getPianos().isEmpty() ? 0 : cart.getPianos().get(0).getId();
-            statement.setInt(2, pianoId);
-            int drumsId = cart.getDrums().isEmpty() ? 0 : cart.getDrums().get(0).getId();
-            statement.setInt(3, drumsId);
+            Integer guitarId = cart.getGuitars().isEmpty() ? null : cart.getGuitars().get(0).getId();
+            Integer pianoId = cart.getPianos().isEmpty() ? null : cart.getPianos().get(0).getId();
+            Integer drumsId = cart.getDrums().isEmpty() ? null : cart.getDrums().get(0).getId();
+
+            if (guitarId != null) {
+                statement.setInt(1, guitarId);
+            } else {
+                statement.setNull(1, java.sql.Types.INTEGER);
+            }
+
+            if (pianoId != null) {
+                statement.setInt(2, pianoId);
+            } else {
+                statement.setNull(2, java.sql.Types.INTEGER);
+            }
+
+            if (drumsId != null) {
+                statement.setInt(3, drumsId);
+            } else {
+                statement.setNull(3, java.sql.Types.INTEGER);
+            }
+
             statement.setInt(4, cart.getClientId());
 
             statement.executeUpdate();
@@ -129,4 +196,5 @@ public class CartRepositoryI implements CartRepository {
             e.printStackTrace();
         }
     }
+
 }

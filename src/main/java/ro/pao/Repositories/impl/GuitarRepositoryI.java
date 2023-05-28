@@ -107,7 +107,7 @@ public class GuitarRepositoryI implements GuitarRepository {
                     int quantity = resultSet.getInt("quantity");
                     String body = resultSet.getString("body");
 
-                    return new Guitar(brand, name, price, quantity, body);
+                    return new Guitar(id, brand, name, price, quantity, body);
                 }
             }
         } catch (SQLException e) {

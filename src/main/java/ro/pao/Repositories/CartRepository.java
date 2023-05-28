@@ -6,7 +6,11 @@ import ro.pao.Models.Guitar;
 import ro.pao.Models.Piano;
 
 public interface CartRepository {
-    void addToCart(int clientId, Guitar guitar, Piano piano, Drums drums);
+    void addToCart(int clientId, Guitar guitar);
+
+    void addToCart(int clientId, Piano piano);
+
+    void addToCart(int clientId, Drums drums);
 
     Cart getCartByClientId(int clientId);
 

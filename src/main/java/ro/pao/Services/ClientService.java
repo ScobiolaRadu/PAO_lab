@@ -9,13 +9,13 @@ import ro.pao.Models.Drums;
 public interface ClientService {
     void createAccount(Client client);
 
-    int login(String username, String password);
+    Client login(String username, String password);
 
-    void addGuitarToCart(Client client, Guitar guitar);
+    void addGuitarToCart(Client client, int guitarid);
 
-    void addPianoToCart(Client client, Piano piano);
+    void addPianoToCart(Client client, int pianoid);
 
-    void addDrumsToCart(Client client, Drums drums);
+    void addDrumsToCart(Client client, int drumsid);
 
     void emptyCart(Client client);
 

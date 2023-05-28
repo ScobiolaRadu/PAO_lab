@@ -107,7 +107,7 @@ public class DrumsRepositoryI implements DrumsRepository {
                     int quantity = resultSet.getInt("quantity");
                     int nr_drums = resultSet.getInt("nr_drums");
 
-                    return new Drums(brand, name, price, quantity, nr_drums);
+                    return new Drums(id, brand, name, price, quantity, nr_drums);
                 }
             }
         } catch (SQLException e) {

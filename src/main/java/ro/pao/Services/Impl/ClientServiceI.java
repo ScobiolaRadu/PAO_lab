@@ -9,16 +9,25 @@ import ro.pao.Models.Piano;
 import ro.pao.Models.Drums;
 import ro.pao.Repositories.ClientRepository;
 import ro.pao.Repositories.CartRepository;
+import ro.pao.Repositories.GuitarRepository;
+import ro.pao.Repositories.PianoRepository;
+import ro.pao.Repositories.DrumsRepository;
 import ro.pao.Services.ClientService;
 
 public class ClientServiceI implements ClientService {
 
     private ClientRepository clientRepository;
     private CartRepository cartRepository;
+    private GuitarRepository guitarRepository;
+    private PianoRepository pianoRepository;
+    private DrumsRepository drumsRepository;
 
-    public ClientServiceI(ClientRepository clientRepository, CartRepository cartRepository) {
+    public ClientServiceI(ClientRepository clientRepository, CartRepository cartRepository, GuitarRepository guitarRepository, PianoRepository pianoRepository, DrumsRepository drumsRepository) {
         this.clientRepository = clientRepository;
         this.cartRepository = cartRepository;
+        this.guitarRepository = guitarRepository;
+        this.pianoRepository = pianoRepository;
+        this.drumsRepository = drumsRepository;
     }
 
     @Override
@@ -27,14 +36,9 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public int login(String username, String password) {
+    public Client login(String username, String password) {
         Client retrievedClient = clientRepository.getClientByUsernameAndPassword(username, password);
-
-        if (retrievedClient != null && retrievedClient.getUsername().equals(username)
-                && retrievedClient.getPassword().equals(password)) {
-            return 1;
-        }
-        return 0;
+        return retrievedClient;
     }
 
     @Override
@@ -46,21 +50,24 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public void addGuitarToCart(Client client, Guitar guitar) {
+    public void addGuitarToCart(Client client, int guitarId) {
         int clientId = client.getId();
-        cartRepository.addToCart(clientId, guitar, null, null);
+        Guitar guitar = guitarRepository.getGuitarById(guitarId);
+        cartRepository.addToCart(clientId, guitar);
     }
 
     @Override
-    public void addPianoToCart(Client client, Piano piano) {
+    public void addPianoToCart(Client client, int pianoId) {
         int clientId = client.getId();
-        cartRepository.addToCart(clientId, null, piano, null);
+        Piano piano = pianoRepository.getPianoById(pianoId);
+        cartRepository.addToCart(clientId, piano);
     }
 
     @Override
-    public void addDrumsToCart(Client client, Drums drums) {
+    public void addDrumsToCart(Client client, int drumsId) {
         int clientId = client.getId();
-        cartRepository.addToCart(clientId, null, null, drums);
+        Drums drums = drumsRepository.getDrumsById(drumsId);
+        cartRepository.addToCart(clientId, drums);
     }
 
     @Override

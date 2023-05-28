@@ -75,4 +75,15 @@ public class Cart {
     public void addDrums(Drums drums) {
         this.drums.add(drums);
     }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", guitars=" + guitars +
+                ", pianos=" + pianos +
+                ", drums=" + drums +
+                '}';
+    }
 }

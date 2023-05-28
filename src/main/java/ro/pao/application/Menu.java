@@ -16,7 +16,6 @@ import ro.pao.Models.Piano;
 
 import java.sql.Connection;
 import java.util.Scanner;
-import java.util.List;
 
 import ro.pao.Repositories.impl.GuitarRepositoryI;
 import ro.pao.Repositories.impl.PianoRepositoryI;
@@ -40,6 +39,9 @@ public class Menu {
         });
         this.clientService = new ClientServiceI(new ClientRepositoryI(connection) {
         }, new CartRepositoryI(connection) {
+        }, new GuitarRepositoryI(connection) {
+        }, new PianoRepositoryI(connection) {
+        }, new DrumsRepositoryI(connection) {
         });
     }
 
@@ -246,6 +248,7 @@ public class Menu {
             System.out.println("5   Add piano to cart");
             System.out.println("6   Add drums to cart");
             System.out.println("7   View cart");
+            System.out.println("8   Clear cart");
             System.out.println("100   Logout");
 
             Scanner scanner = new Scanner(System.in);
@@ -265,62 +268,33 @@ public class Menu {
                     break;
 
                 case "4":
-                    System.out.println("Brand: ");
-                    String brand = scanner.next();
-                    System.out.println("Model: ");
-                    String model = scanner.next();
-                    System.out.println("Price: ");
-                    int price = scanner.nextInt();
-                    System.out.println("Stock: ");
-                    int stock = scanner.nextInt();
-                    System.out.println("Body: ");
-                    String body = scanner.next();
-
-                    List<Guitar> guitars = guitarService.getAllGuitars();
-                    Guitar guitar = new Guitar(brand, model, price, stock, body);
-                    clientService.addGuitarToCart(client, guitar);
+                    System.out.println("Id of guitar to add: ");
+                    int idguitar = scanner.nextInt();
+                    clientService.addGuitarToCart(client, idguitar);
                     break;
 
                 case "5":
-                    System.out.println("Brand: ");
-                    brand = scanner.next();
-                    System.out.println("Model: ");
-                    model = scanner.next();
-                    System.out.println("Price: ");
-                    price = scanner.nextInt();
-                    System.out.println("Stock: ");
-                    stock = scanner.nextInt();
-                    System.out.println("Key: ");
-                    String key = scanner.next();
-
-                    List<Piano> pianos = pianoService.getAllPianos();
-                    Piano piano = new Piano(brand, model, price, stock, key);
-                    clientService.addPianoToCart(client, piano);
+                    System.out.println("Id of piano to add: ");
+                    int idpiano = scanner.nextInt();
+                    clientService.addPianoToCart(client, idpiano);
                     break;
 
                 case "6":
-                    System.out.println("Brand: ");
-                    brand = scanner.next();
-                    System.out.println("Model: ");
-                    model = scanner.next();
-                    System.out.println("Price: ");
-                    price = scanner.nextInt();
-                    System.out.println("Stock: ");
-                    stock = scanner.nextInt();
-                    System.out.println("Number of drums: ");
-                    int nr_drums = scanner.nextInt();
-                    List<Drums> drumsList = drumsService.getAllDrums();
-                    Drums drums = new Drums(brand, model, price, stock, nr_drums);
-                    clientService.addDrumsToCart(client, drums);
+                    System.out.println("Id of drums to add: ");
+                    int iddrums = scanner.nextInt();
+                    clientService.addDrumsToCart(client, iddrums);
                     break;
 
                 case "7":
                     System.out.println(clientService.showCart(client));
                     break;
 
+                case "8":
+                    clientService.emptyCart(client);
+                    break;
+
                 case "100":
                     System.out.println("Logged out!");
-                    clientService.emptyCart(client);
                     ok = 0;
                     break;
 
@@ -341,9 +315,11 @@ public class Menu {
         Client client = new Client();
         client.setUsername(username);
         client.setPassword(password);
-        int allowed = clientService.login(client.getUsername(), client.getPassword());
+        Client check = clientService.login(client.getUsername(), client.getPassword());
+        int id = check.getId();
+        client.setId(id);
 
-        if (allowed != 0)
+        if (check != null)
             clientMenu(client);
         else
             System.out.println("Wrong username or password");
